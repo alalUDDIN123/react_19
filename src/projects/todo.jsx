@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./todo.css";
 import TodoList from "./TodoList";
 import { getTodosFromLocalStorage, saveTodosToLocalStorage } from "./Helper";
+import DateTime from "./DateTime";
 
 const Todo = () => {
     const [todoInput, setTodoInput] = useState('');
@@ -34,6 +35,11 @@ const Todo = () => {
             <header>
                 <h1>Todo List</h1>
             </header>
+
+            {/* display real date time */}
+            <h2 className="datetime">
+                <DateTime />
+            </h2>
             <section className="form">
                 <form onSubmit={handleSubmit}>
                     <div>

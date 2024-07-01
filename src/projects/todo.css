@@ -32,13 +32,7 @@ h1 {
   overflow: hidden;
 }
 
-.header,
-.form,
-.datetime {
-  margin: 0 1rem;
-  min-height: 10vh;
-  width: 100%;
-}
+
 
 .header {
   align-items: center;
