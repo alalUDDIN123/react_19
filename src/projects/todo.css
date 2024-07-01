@@ -1,0 +1,206 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Urbanist", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 900;
+}
+
+h1 {
+  font-size: 3.2rem;
+  font-weight: bold;
+}
+
+.todo-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 3%;
+  transition: 0.3s linear;
+  overflow: hidden;
+}
+
+.header,
+.form,
+.datetime {
+  margin: 0 1rem;
+  min-height: 10vh;
+  width: 100%;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 3rem;
+  min-height: 25vh;
+  width: 100%;
+}
+
+section h1 {
+  font-size: 4.8rem;
+  text-align: center;
+}
+
+.date-time {
+  font-size: 2.4rem;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  font-size: 1.7rem;
+  justify-content: center;
+  margin: 15px 0;
+  padding: 0.8rem;
+  width: 100%;
+}
+
+form input {
+  padding: 10px;
+  font-size: 1.7rem;
+  letter-spacing: 0.1rem;
+  outline: none;
+  border: none;
+  border-top-left-radius: 17px;
+  border-bottom-left-radius: 17px;
+  max-width: 500px;
+  transition: background-color 200ms ease-in-out;
+  width: 100%;
+  background-color: #f2f3f4;
+  --primary-color: #000;
+  color: var(--primary-color);
+}
+
+form input:hover {
+  cursor: text;
+}
+
+form input::placeholder {
+  color: white;
+  opacity: 0.7;
+}
+
+button {
+  border: none;
+  outline: none;
+  transition: box-shadow 200ms ease, background-color 200ms ease-in-out;
+}
+
+form button:hover {
+  cursor: pointer;
+  background-color: #f1c40f;
+}
+
+form button {
+  padding: 10px;
+  font-size: 17px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  min-width: 100px;
+  background-color: #5dade2;
+  --secondary-color: "#0000";
+  color: var(--secondary-color);
+}
+
+span {
+  margin-right: 3.2rem;
+}
+
+.myUnOrdList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-list {
+  min-width: 25%;
+  list-style: none; /* To remove the bullets of unordered list */
+}
+
+.todo-item {
+  margin: 2.4rem;
+  font-size: 20px;
+  color: #1c2833;
+  border-radius: 30px;
+  transition: background-color 200ms ease-in-out;
+  background-color: #f2f3f4;
+  min-width: 35rem;
+  max-width: 40rem;
+  padding: 1.6rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 0.3fr 0.3fr;
+  justify-content: start;
+  gap: 1.6rem;
+  overflow-wrap: normal;
+}
+
+li span {
+  max-width: 20rem;
+  color: #1c2833;
+}
+
+.check-btn,
+.delete-btn {
+  font-size: 3rem;
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 80%;
+  margin: 0 5px;
+  background-color: #fff;
+}
+
+.check-btn {
+  background-color: #2ecc71;
+  color: #fff;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.NotCompleted {
+  text-decoration: none;
+}
+
+.clear-btn {
+  background-color: #e74c3c;
+  font-size: 1.6rem;
+  padding: 1rem 2.2rem;
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+}
+
+.clear-btn:hover {
+  background-color: #8d1407;
+}
+
+.check-btn:hover,
+.edit-btn:hover,
+.delete-btn:hover,
+.cancel-btn:hover {
+  opacity: 0.7;
+}
