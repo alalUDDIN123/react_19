@@ -24,7 +24,7 @@ const TodoList = ({ todos, setTodos }) => {
     };
 
     return (
-        <section className="myUnOrdList">
+        <section className="todo-list-container">
             <ul className="todo-list">
                 {todos.map((todo, index) => (
                     <TodoItem

@@ -30,19 +30,20 @@ const Todo = () => {
         setTodoInput('');
     };
 
+    const shouldShoulClearAllBtn = todos && todos.length > 0
+
     return (
         <section className="todo-container">
             <header>
                 <h1>Todo List</h1>
+                {/* display real date time */}
+                <div className="datetime">
+                    <DateTime />
+                </div>
             </header>
-
-            {/* display real date time */}
-            <h2 className="datetime">
-                <DateTime />
-            </h2>
             <section className="form">
                 <form onSubmit={handleSubmit}>
-                    <div>
+                    <div className="form-input">
                         <input
                             type="text"
                             className="todo-input"
@@ -51,11 +52,18 @@ const Todo = () => {
                             value={todoInput}
                         />
                     </div>
-                    <div>
+                    <div className="form-buttons">
                         <button className="todo-btn" type="submit">Add Task</button>
+
                     </div>
                 </form>
             </section>
+            {/* clear all todos */}
+            {
+                shouldShoulClearAllBtn && <button className="clear-btn" onClick={() => setTodos([])}>Clear All</button>
+            }
+
+
             <TodoList todos={todos} setTodos={setTodos} />
         </section>
     );
