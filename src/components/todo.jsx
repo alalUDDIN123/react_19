@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import "./todo.css";
+import "../styles/todo.css";
 import TodoList from "./TodoList";
-import { getTodosFromLocalStorage, saveTodosToLocalStorage } from "./Helper";
 import DateTime from "./DateTime";
+import { getTodosFromLocalStorage, saveTodosToLocalStorage } from "../utils/Helper";
 
 const Todo = () => {
     const [todoInput, setTodoInput] = useState('');
