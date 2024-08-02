@@ -1,70 +1,124 @@
-# Getting Started with Create React App
+ Detailed explanation of how `useContext` is used in this project along with the necessary context setup.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Step 1: Create the Context
 
-## Available Scripts
+First, create a context file where you define the `authContext` and provide the context values.
 
-In the project directory, you can run:
+#### `useContext.js`
+```jsx
+import React, { createContext, useState } from 'react';
 
-### `npm start`
+// Create the context
+export const authContext = createContext();
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+// Create a provider component
+export const AuthProvider = ({ children }) => {
+    const [isSignedIn, setIsSignedIn] = useState(false);
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    const doSignIn = () => {
+        // Sign in logic here
+        setIsSignedIn(true);
+    };
 
-### `npm test`
+    const signOut = () => {
+        // Sign out logic here
+        setIsSignedIn(false);
+    };
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    return (
+        <authContext.Provider value={{ isSignedIn, doSignIn, signOut }}>
+            {children}
+        </authContext.Provider>
+    );
+};
+```
 
-### `npm run build`
+### Step 2: Wrap Your App with the Provider
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Wrap your main application component with the `AuthProvider` to make the context available throughout your app.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### `index.js`
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { AuthProvider } from './useContext';
+import './styles.css';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ReactDOM.render(
+    <AuthProvider>
+        <App />
+    </AuthProvider>,
+    document.getElementById('root')
+);
+```
 
-### `npm run eject`
+### Step 3: Use the Context in Components
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Use the `useContext` hook in your components to access the context values. 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### `SignIn.js`
+```jsx
+import React, { useContext } from 'react';
+import { authContext } from './useContext';
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+const SignIn = () => {
+    const { doSignIn } = useContext(authContext);
+    return (
+        <div className="container">
+            <button onClick={doSignIn}>Sign In</button>
+        </div>
+    );
+}
 
-## Learn More
+export default SignIn;
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### `Dashboared.js`
+```jsx
+import React, { useContext } from 'react';
+import { authContext } from './useContext';
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+const Dashboared = () => {
+    const { signOut } = useContext(authContext);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    return (
+        <div className="container">
+            <h1>You are signed in</h1>
+            <button onClick={signOut}>Sign Out</button>
+        </div>
+    );
+}
 
-### Analyzing the Bundle Size
+export default Dashboared;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### `App.js`
+```jsx
+import React, { useContext } from 'react';
+import { authContext } from './useContext';
+import Dashboared from './Dashboared';
+import SignIn from './SignIn';
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+const App = () => {
+    const { isSignedIn } = useContext(authContext);
+    return (
+        <>
+            {isSignedIn ? <Dashboared /> : <SignIn />}
+        </>
+    );
+}
 
-### Advanced Configuration
+export default App;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Explanation
 
-### Deployment
+1. **Creating Context and Provider**: In `useContext.js`, we create a context using `createContext` and a provider component `AuthProvider`. The provider holds the state (`isSignedIn`) and the functions to sign in (`doSignIn`) and sign out (`signOut`).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+2. **Wrapping the App**: In `index.js`, we wrap the `App` component with the `AuthProvider`. This makes the context available to all components within the `App`.
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. **Consuming Context**: In `SignIn.js` and `Dashboared.js`, we use the `useContext` hook to access the `authContext` and call the `doSignIn` and `signOut` functions respectively.
