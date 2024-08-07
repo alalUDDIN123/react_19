@@ -15,10 +15,19 @@ const TodoList = ({ todos, setTodos }) => {
         setTodos((prev) => prev.filter((_, i) => i !== index));
     };
 
-    const handleEdit = (index, newText) => {
+    const handleEdit = (index, newText, boolean) => {
+        let isAnyTodoEditedMood = todos.filter((todo) => todo.isEditing == true)
+        if (isAnyTodoEditedMood.length > 0) {
+            setTodos((prev) =>
+                prev.map((todo) => ({
+                    ...todo,
+                    isEditing: false
+                }))
+            );
+        }
         setTodos((prev) =>
             prev.map((todo, i) =>
-                i === index ? { ...todo, text: newText } : todo
+                i === index ? { ...todo, text: newText, isEditing: boolean } : todo
             )
         );
     };
