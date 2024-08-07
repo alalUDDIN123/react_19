@@ -3,24 +3,24 @@ import PropTypes from "prop-types";
 import { MdCheck, MdDeleteForever, MdEdit, MdSave, MdClose } from "react-icons/md";
 
 const TodoItem = ({ todo, index, handleCheck, handleDelete, handleEdit }) => {
-    const [isEditing, setIsEditing] = useState(false);
     const [editText, setEditText] = useState(todo.text);
 
     const handleEditClick = () => {
-        if (isEditing) {
-            handleEdit(index, editText);
+        if (todo.isEditing) {
+            handleEdit(index, editText, false);
+        } else {
+            handleEdit(index, editText, true);
         }
-        setIsEditing(!isEditing);
-    };
 
+    };
     const handleCancelClick = () => {
-        setIsEditing(false);
+        handleEdit(index, editText, false);
         setEditText(todo.text);
     };
 
     return (
         <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-            {isEditing ? (
+            {todo.isEditing ? (
                 <input
                     type="text"
                     value={editText}
@@ -33,9 +33,9 @@ const TodoItem = ({ todo, index, handleCheck, handleDelete, handleEdit }) => {
                 {todo.completed ? <MdClose className="check-btn" /> : <MdCheck className="check-btn" />}
             </button>
             <button onClick={handleEditClick}>
-                {isEditing ? <MdSave className="edit-btn" /> : <MdEdit className="edit-btn" />}
+                {todo.isEditing ? <MdSave className="edit-btn" /> : <MdEdit className="edit-btn" />}
             </button>
-            {isEditing && (
+            {todo.isEditing && (
                 <button onClick={handleCancelClick}>
                     <MdClose className="cancel-btn" />
                 </button>
@@ -50,7 +50,8 @@ const TodoItem = ({ todo, index, handleCheck, handleDelete, handleEdit }) => {
 TodoItem.propTypes = {
     todo: PropTypes.shape({
         text: PropTypes.string.isRequired,
-        completed: PropTypes.bool.isRequired
+        completed: PropTypes.bool.isRequired,
+        isEditing: PropTypes.bool.isRequired,
     }).isRequired,
     index: PropTypes.number.isRequired,
     handleCheck: PropTypes.func.isRequired,
