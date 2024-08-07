@@ -26,7 +26,7 @@ const Todo = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (!todoInput) return;
-        setTodos((prev) => [...prev, { text: todoInput, completed: false }]);
+        setTodos((prev) => [...prev, { text: todoInput, completed: false, isEditing: false }]);
         setTodoInput('');
     };
 
@@ -48,6 +48,7 @@ const Todo = () => {
                             type="text"
                             className="todo-input"
                             autoComplete="off"
+                            placeholder="Add Todo..."
                             onChange={(e) => handleChange(e.target.value)}
                             value={todoInput}
                         />
@@ -63,8 +64,15 @@ const Todo = () => {
                 shouldShoulClearAllBtn && <button className="clear-btn" onClick={() => setTodos([])}>Clear All</button>
             }
 
+            {todos.length < 1 ? (
+                <div className="no-tasks-message">
+                    Hurry! You have no tasks. Enjoy your free time! 😄
+                </div>
+            ) : (
+                <TodoList todos={todos} setTodos={setTodos} />
+            )}
 
-            <TodoList todos={todos} setTodos={setTodos} />
+
         </section>
     );
 };
